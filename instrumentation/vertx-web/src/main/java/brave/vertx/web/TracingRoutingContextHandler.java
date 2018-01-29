@@ -48,6 +48,7 @@ final class TracingRoutingContextHandler implements Handler<RoutingContext> {
     }
 
     if (newRequest || !context.failed()) { // re-routed, so re-attach the end handler
+      // Note: In Brave, finishing a client span after headers sent is normal.
       context.addHeadersEndHandler(finishHttpSpan(context, span));
     }
 
